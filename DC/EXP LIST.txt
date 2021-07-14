@@ -1,0 +1,10 @@
+1 Study of Middleware Layer 
+2 Client/server using RPC/RMI. 
+3  Implementation of multi threaded application
+4 Inter-process communication 
+5 Group Communication
+6 Load Balancing Algorithm.
+7 Election Algorithm.
+8 Clock Synchronization algorithms.
+9 Mutual Exclusion Algorithm. 
+10 Deadlock management in Distributed systems

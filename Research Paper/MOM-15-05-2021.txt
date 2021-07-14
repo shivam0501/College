@@ -1,0 +1,13 @@
+Login - Change
+Admin - Divide the Admin from the entire application.
+User Admin Role - (Can act as a Only a Power User, Master User)
+User Interface - To be improved
+Security - Concerned data security because of the actual deployment since the financial 
+Documentation - For outsiders to understand, more comprehensive documentation.
+Business Process Model  - 
+Use Case Diagrams - 
+WireFrames - 
+Scenarios - 
+
+Breanstalk or Cloudformation
+ECS, EC2

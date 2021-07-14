@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Ns-developers] Routing table
+   </TITLE>
+   <LINK REL="Index" HREF="index.html" >
+   <LINK REL="made" HREF="mailto:ns-developers%40isi.edu?Subject=%5BNs-developers%5D%20Routing%20table&In-Reply-To=003001c6b16e%24f83c5420%24a836000a%40VONNY">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002363.html">
+   <LINK REL="Next"  HREF="002365.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Ns-developers] Routing table</H1>
+    <B>Lavina Jain</B> 
+    <A HREF="mailto:ns-developers%40isi.edu?Subject=%5BNs-developers%5D%20Routing%20table&In-Reply-To=003001c6b16e%24f83c5420%24a836000a%40VONNY"
+       TITLE="[Ns-developers] Routing table">lavina.jain at gmail.com
+       </A><BR>
+    <I>Thu Jul 27 14:51:29 PDT 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002363.html">[Ns-developers] Routing table
+</A></li>
+        <LI>Next message: <A HREF="002365.html">[Ns-developers] Routing table
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2364">[ date ]</a>
+              <a href="thread.html#2364">[ thread ]</a>
+              <a href="subject.html#2364">[ subject ]</a>
+              <a href="author.html#2364">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Vincent,
+
+Thanks for the guidance. I have implemented ant routing algorithm called
+AntNet on ns-2. I have implemented the algorithm in C++ and have done the
+required tcl bindings so that it can be simulated using a tcl script. The
+simulation generates routing tables in text format. Routing tables are
+internally implemented in c++ code as a data structure.
+
+Now I need to compare ant routing algorithm with other state-of-the-art
+routing algorithms. So, I need to simulate traffic that flows according to
+my routing tables. How can I do that?
+
+If I can find out the current implementation of routing tables in ns-2, then
+may be I can feed my values in that.
+Or else, can we define what routing table the traffic must follow.
+
+Kindly let me know if I need to give any more info about my implementation
+of ant algorithm.
+Can you please help me out with this.
+
+Regards,
+Lavina
+
+On 7/27/06, Vincent Nauwelaers &lt;<A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">vincent.nauwelaers at student.kuleuven.ac.be</A>&gt;
+wrote:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----- Original Message -----
+</I>&gt;<i> *From:* Lavina Jain &lt;<A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">lavina.jain at gmail.com</A>&gt;
+</I>&gt;<i> *To:* Vincent Nauwelaers &lt;<A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">vincent.nauwelaers at student.kuleuven.ac.be</A>&gt;
+</I>&gt;<i> *Sent:* Thursday, July 27, 2006 10:01 AM
+</I>&gt;<i> *Subject:* Re: [Ns-developers] Routing table
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i> I had also implemented a routing algorithm, but I generated routing tables
+</I>&gt;<i> as a data structure defined in C++ by myself.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  In the future, you should be more specific when asking questions.
+</I>&gt;<i> You're probably working on it for some time now, but someone else
+</I>&gt;<i> has to imagine everything. I would need an answer to questions like :
+</I>&gt;<i>
+</I>&gt;<i> Does your routing algorithm have a name?
+</I>&gt;<i> Does it work already in ns? Does it work on an other simulator?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> How can I make already implementeed simulations and traffics in ns-2 to
+</I>&gt;<i> use my routing table.
+</I>&gt;<i> For example, in tcl script we can generate cbr traffic and use static or
+</I>&gt;<i> DSR or some other routing algorithm. How can I cause the traffic to follow
+</I>&gt;<i> my routing tables.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  I can tell you, you will need to do a lot of research about routing in
+</I>&gt;<i> ns2,
+</I>&gt;<i> because it is the most complex part of ns2, seen the limited
+</I>&gt;<i> documentation.
+</I>&gt;<i> A good solution is to look at the workings of existing protocols and
+</I>&gt;<i> try  to create something equal, only using your routingtable.
+</I>&gt;<i>
+</I>&gt;<i> sincerely,
+</I>&gt;<i>
+</I>&gt;<i> -- Vincent
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thanks and Regards,
+</I>&gt;<i> Lavina
+</I>&gt;<i>
+</I>&gt;<i> On 7/27/06, Vincent Nauwelaers &lt;<A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">vincent.nauwelaers at student.kuleuven.ac.be</A>&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I would suggest to use one language as much as possible,
+</I>&gt;<i> &gt; C++ is the most obvious choice.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Be sure to take a look at ~/ns- 2.29/routing
+</I>&gt;<i> &gt; where you can find rttable{.h, .cc}.
+</I>&gt;<i> &gt; It might be a base to start from.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; sincerely,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --Vincent
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ----- Original Message -----
+</I>&gt;<i> &gt; From: &quot;Ibraheem Saudi&quot; &lt; <A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">ibraheem_ec at yahoo.com</A>&gt;
+</I>&gt;<i> &gt; To: &lt;<A HREF="http://mailman.isi.edu/mailman/listinfo/ns-developers">ns-developers at ISI.EDU</A>&gt;
+</I>&gt;<i> &gt; Sent: Wednesday, July 26, 2006 8:39 AM
+</I>&gt;<i> &gt; Subject: [Ns-developers] Routing table
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt; Hi, I'm developing an application layer multicast
+</I>&gt;<i> &gt; &gt; protocol using ns-2.29. I need to implement my own
+</I>&gt;<i> &gt; &gt; routing table. I don't know how to implement it, and
+</I>&gt;<i> &gt; &gt; what language used tcl or c++. Any sugestions?
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Thanks
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; __________________________________________________
+</I>&gt;<i> &gt; &gt; Do You Yahoo!?
+</I>&gt;<i> &gt; &gt; Tired of spam?  Yahoo! Mail has the best spam protection around
+</I>&gt;<i> &gt; &gt; <A HREF="http://mail.yahoo.com">http://mail.yahoo.com</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> &quot;Unravelling life's mysteries and discovering life's secrets may take the
+</I>&gt;<i> courage and determination found only in a self-motivated pursuit.&quot;
+</I>&gt;<i> - Peter McWilliams
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+&quot;Unravelling life's mysteries and discovering life's secrets may take the
+courage and determination found only in a self-motivated pursuit.&quot;
+- Peter McWilliams
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002363.html">[Ns-developers] Routing table
+</A></li>
+	<LI>Next message: <A HREF="002365.html">[Ns-developers] Routing table
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2364">[ date ]</a>
+              <a href="thread.html#2364">[ thread ]</a>
+              <a href="subject.html#2364">[ subject ]</a>
+              <a href="author.html#2364">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="http://mailman.isi.edu/mailman/listinfo/ns-developers">More information about the Ns-developers
+mailing list</a><br>
+</body></html>

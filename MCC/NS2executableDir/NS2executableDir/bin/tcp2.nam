@@ -1,0 +1,27 @@
+V -t * -v 1.0a5 -a 0
+A -t * -n 1 -p 0 -o 0xffffffff -c 31 -a 1
+A -t * -h 1 -m 2147483647 -s 0
+c -t * -i 1 -n red
+c -t * -i 2 -n blue
+n -t * -a 4 -s 4 -S UP -v square -c black -i black
+n -t * -a 0 -s 0 -S UP -v circle -c black -i black
+n -t * -a 1 -s 1 -S UP -v square -c black -i black
+n -t * -a 2 -s 2 -S UP -v hexagon -c black -i black
+n -t * -a 3 -s 3 -S UP -v circle -c black -i black
+l -t * -s 0 -d 1 -S UP -r 2000000 -D 0.050000000000000003 -c black -o right
+l -t * -s 1 -d 2 -S UP -r 100000 -D 0.10000000000000001 -c black -o right
+l -t * -s 2 -d 4 -S UP -r 100000 -D 0.10000000000000001 -c black -o right
+l -t * -s 4 -d 3 -S UP -r 100000 -D 0.050000000000000003 -c black -o right
+q -t * -s 2 -d 4 -a 0.5
+q -t * -s 4 -d 2 -a 0.5
+q -t * -s 4 -d 3 -a 0.5
+q -t * -s 3 -d 4 -a 0.5
+q -t * -s 2 -d 1 -a 0.5
+q -t * -s 1 -d 2 -a 0.5
+q -t * -s 1 -d 0 -a 0.5
+q -t * -s 0 -d 1 -a 0.5
+n -t 0 -s 0 -S DLABEL -l "Client1" -L ""
+n -t 0 -s 1 -S DLABEL -l "Router1" -L ""
+n -t 0 -s 2 -S DLABEL -l "Endserver1" -L ""
+n -t 0 -s 4 -S DLABEL -l "Router2" -L ""
+n -t 0 -s 3 -S DLABEL -l "Client2" -L ""

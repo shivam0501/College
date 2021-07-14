@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>The Network Simulator ns-2: Validation Tests</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; U; SunOS 5.5.1 sun4u) [Netscape]">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<H1>The Network Simulator ns-2: Validation Tests </H1>
+
+<h2>Daily status of the validation suite</h2>
+
+The test suite (described below) is run every day on the ns
+snapshot.
+<!--
+<a href="http://www.isi.edu/~johnh/WORK/VINT/VALIDATION/">Prior Solaris runs</a>
+(up to December 2004)
+<a href="http://www.isi.edu/~kclan/NS/VALIDATION/">prior FreeBSD runs</a>,
+and
+<a href="http://www.isi.edu/~haldar/VINT/VALIDATION/">prior Linux runs</a> 
+are on-line to narrow down problems.
+-->
+Output of the daily validation is sent to the <a href="http://lists.sourceforge.net/lists/listinfo/nsnam-commits">nsnam-commits</a> mailing list (browse the 
+<a href="http://sourceforge.net/mailarchive/forum.php?forum=nsnam-commits">list archive</a> to see whether other platforms are encountering problems).
+
+<h2>Classes of Ns Protocols</h2>
+
+<p>
+The program ``validate'' in the root directory of the ns distribution
+runs all current standard tests.
+Protocols covered in validate represent the most stable core of ns.
+We insure that validate passes on several different systems for
+each ns release, and we run it over the daily snapshot (see below).
+
+<p> We encourage you to report problems with validated protocols to
+us.  We try to resolve these problems rapidly (as resources allow).
+
+<p> Even though we consider these protocols ``validated'', our test
+suite coverage is not complete.  You are advised to look at what
+aspects of the protocols are tested in the test suite before drawing
+research conclusions from these protocols.
+
+<p>
+Protocols and modules covered at least in part by validate 
+include the following:
+<br>
+<b>Application-level</b>:
+<ul>
+  <li> HTTP, web caching and invalidation, TcpApp (test-suite-webcache.tcl)
+  <li> telnet and ftp sources (test-suite-simple.tcl)
+  <li> Constant-Bit-Rate (CBR) sources (e.g., in test-suite-cbq.tcl)
+  <li> On/Off sources (in test-suite-intserv.tcl)
+</ul>
+<b>Transport protocols</b> (UDP, TCP, RTP, SRM):
+<ul>
+  <li> basic TCP behavior (test-suite-simple.tcl, test-suite-v1{,a}.tcl)
+  <li> Tahoe, Reno, New-Reno, and SACK TCP under different losses (test-suite-tcpVariants.tcl)
+  <li> FACK TCP (limited validation in test-suite-tcpVariants.tcl)
+  <li> TCP vegas (test-suite-vegas-v1.tcl)
+  <li> New-Reno TCP (test-suite-newreno.tcl)
+  <li> SACK TCP (test-suite-sack{,-v1,v1a})
+  <li> full TCP (test-suite-full.tcl), partial validation only.
+  <li> TCP initial window behavior (test-suite-tcp.tcl)
+  <li> rate-based pacing TCP (test-suite-rbp.tcl)
+  <li> RFC-2001 (Reno) TCP behavior (test-suite-rfc2001.tcl)
+  <li> RTP (in test-suite-friendly.tcl, not yet added to "validate")
+  <li> SRM (in test-suite-srm.tcl)
+</ul>
+<b>Routing:</b>
+<ul>
+  <li> algorithmic routing (test-suite-algo-routing)
+  <li> hierarchical routing (test-suite-hier-routing.tcl)
+  <li> lan routing and broadcast (test-suite-lan.tcl)
+  <li> manual routing (test-suite-manual-routing.tcl)
+  <li> centralized multicast, DM multicast, not detailedDM, not
+       multicast over LAN (test-suite-mcast.tcl)
+  <li> routing dynamics (test-suite-routed.tcl)
+  <li> detailed simulation using virtual classifier (test-suite-vc.tcl)
+  <li> mixed-mode session-levels simulation (test-suite-mixmode.tcl)
+  <li> session-level simulation (test-suite-session.tcl)
+</ul>
+<b>Router Mechanisms</b> (scheduling, queue management, admissions control, etc.):
+<ul>
+  <li> several queue scheduling algorithms: FQ (Fair Queueing), SFQ
+  (Stochastic Fair Queuing), DRR (Deficit Round Robin), FIFO
+       (with drop-tail and RED queue management) (test-suite-schedule.tcl)
+  <li> CBQ (both in v1 and v2 mode) (test-stuite-cbq{,-v1,-v1a})
+  <li> RED queue management (test-suite-red{,-v1,-v1a})
+  <li> ECN behavior (and TCP interactions) (test-suite-ecn.tcl)
+  <li> admission control algorithms: MS, HB, ACTP, ACTO, parameter-based (in test-suite-intserv.tcl)
+</ul>
+<b>Link-layer mechanisms:</b>
+<ul>
+  <li> LANs, with CSMA/CD MAC protocols (in test-suite-lan.tcl)
+  <li> snoop
+</ul>
+<b>Other:</b>
+<ul>
+  <li> Error Modules (e.g., in test-suite-ecn.tcl,
+  test-suite-tcp-init-win.tcl, test-suite-session.tcl, and
+  test-suite-srm.tcl)
+</ul>
+
+
+<p> In addition there are a number of protocols in the standard ns
+distribution which are not covered by validate.  Because they cannot
+be automatically tested, bit-rot sometimes breaks these protocols.
+
+<p>
+We attempt to keep non-validated protocols working and welcome bug
+reports.  Becuase of difficulties maintaining code that we did not
+write and for which we may not know ``ground truth'', we cannot
+promise that these protocols will remain working.  We
+<em>strongly</em> encourage people using these protocols in their
+research to examine their output carefully and implement test suites
+for them so that we can move them into the ``validated'' category.
+
+<p>
+Protocols and modules in the core but not validated include:
+<ul>
+  <li> Fack and Asym TCP
+  <li> RTCP
+  <li> RTP
+  <li> LANs with CSMA/CA MAC protocols (tcl/ex/mac-test.tcl), with
+     MultihopMac (mac-multihop.cc), with 802.11 (mac-802_11.cc)
+  <li> RLM (Receiver Layered Multicast) (tcl/ex/test-rlm.tcl)
+  <li> token bucket filters (tcl/ex/test-tbf.tcl)
+  <li> trace-generated sources (tcl/ex/tg.tcl) 
+  <li> delay-adaptive receivers (tcl/ex/test-rcvr.tcl) 
+  <li> delay modules (delaymodel.cc)
+  <li> IVS (ivs.cc)
+  <li> emulation mode 
+  <li> (many other protocols not yet listed)
+</ul>
+
+<p> Finally, there are a number of <a href="ns-contributed.html">contributed
+protocols described on their
+own web page</a>.  These protocols are often for specific releases of
+ns and may not work in the current release.
+
+<p>We welcome discussion of contributed protocols on the ns-users
+mailing list, but we are unlikely to be able to provide support for
+them.  We welcome outside efforts to move these protocols into the
+core; we will add protocols that include test suites and work with the
+current release at their authors or users request.  In some cases we
+are actively integrating contributed code on a case-by-case basis (for
+example, we're currently adding wireless extensions).
+
+
+<H2>Specific Ns Validation Tests</H2>
+
+<H3>The basic test</H3>
+
+<P>The <A HREF="ftp://ftp.ee.lbl.gov/papers/simtests.ps.Z">Simulator Tests
+document </A>illustrates a basic suite of validation tests that mainly
+tests TCP congestion control algorithms. These tests are run with the command
+<TT>./test-all-simple</TT> 
+in ns-2/tcl/test
+(or <TT>./test-all quiet</TT> to suppress graphs).
+<A HREF="ns-verify.html">Comments</A>.
+</P>
+
+<P>Extended versions of this test suite are in tcl/test/test-suite-routed.tcl.
+This version also separates out the topology as a single library (tcl/test/topology.html),
+and common drivers for the different test suites (tcl/test/misc.tcl). 
+
+<P>The test-all-simple suite, but using the tcl code for that test suite from
+ns-1, can be run in ns-2 in ``backward compatibility mode'' with the command
+<TT>test-all-v1</TT> in ns-2/tcl/test (or <TT>./test-all-v1 quiet</TT>
+to suppress graphs). 
+</P>
+
+<P>The 
+<A HREF="http://ssfnet.org/Exchange/tcp/">SSF TCP validation tests</A> 
+are adapted from the TCP validation tests in ns-2 to validate the
+TCP implementation in the SSFNET simulator.   The SSFNET web page
+also includes a detailed description of the behavior in each test.
+</P>  
+
+<H3>More TCP tests</H3>
+
+<P>The <B>SACK TCP</B> validation tests -1 can be run with the command
+<TT>test-all-sack</TT> in ns-2/tcl/test (or <TT>./test-all-sack quiet</TT>
+to suppress graphs). The <B>SACK TCP</B> validation tests from ns-1 can
+be run with the command <TT>test-all-sack-v1</TT> in ns-2/tcl/test. <A HREF="ns-verify.html">Comments</A>.
+The TCP implementations in these tests use one-way TCP without SYN/FIN
+packets. </P>
+
+<P><B>Tests comparing Tahoe, Reno, SACK, and Vegas TCP</B> can be run with
+the command <TT>test-all-tcpVariants</TT> in ns-2/tcl/test. Some of these tests
+are described in <B><A HREF="ftp://ftp.ee.lbl.gov/papers/sacks.ps.Z">Simulation-based
+Comparisons of Tahoe, Reno, and SACK TCP </A></B>. <A HREF="ns-verify.html">Comments</A>.
+The TCP implementations in these tests use both one-way and two-way TCP. 
+</P>
+
+<P>Tests with <B>Reno FullTCP</B> (with SYN/FIN packets
+and two-way data flow) can be run with the command <TT>test-all-full</TT>
+in ns-2/tcl/test. These tests are described in <B><A HREF="ftp://ftp.ee.lbl.gov/papers/fulltcp.ps">Ns
+Simulator Tests for Reno FullTCP</A></B>. </P>
+
+<P>Additional tests of TCP's retransmit timer and ECN functionality can
+be run with the command <TT>./test-all-tcp</TT> in ns-2/tcl/test (or <TT>./test-all-tcp
+quiet</TT> to suppress graphs). This test is discussed in the file <TT>test-suite-tcp.txt</TT>.
+</P>
+
+<P>Tests for <B>TCP-Vegas</B> (ported from ns-v1) can be run <TT>tcl/test/test-all-vegas-v1</TT>.
+</P>
+
+<P>Tests for <B>TCP with rate-based-pacing</B> are in <TT>tcl/test/test-all-rbp</TT>
+(see <A HREF="http://www.isi.edu/~johnh/PAPERS/Visweswaraiah97b.html">Improving
+Restart of Idle TCP Connections</A> for a description of RBP). This script
+also tests Reno and Vegas behavior after an idle period, with and without
+the slow-start restart option. </P>
+
+<H3>Queue management</H3>
+
+<P><A HREF="ftp://ftp.ee.lbl.gov/papers/redsims.ps.Z">Ns Simulator Tests
+for Random Early Detection (RED) Gateways</A> illustrates the validation
+tests for the implementation of RED queue management. These tests can be
+run with <TT>./test-all-red</TT> in ns-2/tcl/test (or <TT>./test-all-red
+quiet</TT> to suppress graphs). The ns-1 tests are run with the command
+<TT>./test-all-red-v1</TT> in ns-2/tcl/test. 
+<A HREF="ns-verify.html">Comments</A>.
+</P>
+
+<P>The validation tests for ECN are described in the note
+<b>ECN Implementations in the NS Simulator</b>
+(<a href="ftp://ftp.ee.lbl.gov/papers/ecnsims.ps">postscript</a>,
+<a href="ftp://ftp.ee.lbl.gov/papers/ecnsims.pdf">PDF</a>).
+</P>
+
+<H3>Scheduling</H3>
+
+<P><A HREF="ftp://ftp.ee.lbl.gov/papers/cbqsims.ps.Z">Ns Simulator Tests
+for Class-Based Queueing</A> illustrates the validation tests for the implementation
+of CBQ in the ns simulator. These tests are run with the command <TT>./test-all-cbq</TT>
+in ns-2/tcl/test (or <TT>./test-all-cbq quiet</TT> to suppress graphs).
+The command <TT>test-all-cbq-v1</TT> in ns-2/tcl/test runs the ns-1 cbq
+test suite in backward compatibility mode. All of the tests run in ns-2
+except for the text showing the ``old'' implementation of formal link-sharing,
+which is not implemlented in ns-2. 
+</P>
+
+<P>The Deficit Round Robin (DRR), Fair Queueing (FQ), and 
+Stochastic Fair Queueing (SFQ) scheduling
+algorithms are contrasted with FIFO scheduling in the scheduling validation
+tests, run with the command <TT>test-all-schedule</TT> in ns-2/tcl/test
+(or <TT>./test-all-schedule quiet</TT> to suppress graphs). 
+
+<H3>Multicast routing</H3>
+
+<P>The validation tests for multicast routing can be run with the command
+test-all-mcast in ns-2/tcl/test. Currently the test suites consist of 2
+tests for Centralized Multicast, 2 tests for a basic dense mode protocol,
+DM (does not respond to topology changes) and 7 tests for a more complete
+version of the dense mode protocol, detailedDM. 
+</P>
+
+<P>A test suite for exhaustive selective loss on lans can be run with the
+detailedDM multicast in two simulation runs. The first run uses the 
+script ns-2/ex/newmcast/pim-no-loss.tcl, which runs the simulations 
+without loss to determine which packets/links will lose the packets in 
+later runs. A second simulation is then run using the script 
+ns-2/ex/newmcast/pim-loss.tcl. This example script targets Join messages 
+for selective loss.
+</P>
+
+<P><!-------------------------------------------------------------->
+<HR></P>
+
+<H2>Demos</H2>
+
+<P>(Many of these demos use nam.) </P>
+
+<H3>Unicast routing</H3>
+
+<UL>
+<LI><TT>ns simple-dyn.tcl</TT> <BR>
+in ns-2/tcl/ex: a simple demo to illustrate <B>link failure and recovery</B>;
+no dynamic routing is done to heal the failure. </LI>
+
+<LI><TT>ns simple-rtg.tcl</TT> <BR>
+in ns-2/tcl/ex: a <B>dynamic routing</B> demo. </LI>
+
+<LI><TT>ns simple-eqp.tcl</TT> <BR>
+in ns-2/tcl/ex: <B>equal cost multi-path routing</B> through two equal
+cost routes. <BR>
+<TT>ns simple-eqp1.tcl</TT> <BR>
+shows equal cost multi-path routing on a different dynamic topology. </LI>
+</UL>
+
+<H3>Multicast routing</H3>
+
+<UL>
+<LI><TT>ns mcast.tcl</TT> <BR>
+in ns-2/tcl/ex: a <B>multicast routing</B> demo. Comments in mcast.txt.
+</LI>
+
+<LI><TT>ns cmcast.tcl</TT> <BR>
+in ns-2/tcl/ex/newmcast: <B>centralized multicast computation</B> for use
+in ``session-level'' simulations. Instead of using join messages and implementing
+multicast routing protocols in the individual routers, the multicast routing
+tables are implemented in a centralized fashion for the entire topology.
+PIM sparse mode shared trees and source-specific trees are supported. Comments
+in cmcast.txt. <BR>
+<TT>ns cmcast-spt.tcl</TT> <BR>
+uses source-specific trees. <BR>
+<TT>ns cmcast-100.tcl</TT> <BR>
+creates a topology of 100 nodes and 950 edges. 10 members join the multicast
+group. One sender sends for 90 seconds. </LI>
+
+<LI><TT>ns detailedDM*.tcl</TT> <BR>
+in ns-2/tcl/ex/newmcast: Dense Mode protocol that adapts to network changes
+and works with LAN topologies (LANs created by the multi-link method).
+Note that this is the recommended version of the dense mode protocol in
+ns. Comments in detailedDM.txt. </LI>
+
+<LI><TT>ns mcast*.tcl</TT> <BR>
+in ns-2/tcl/ex/mcast*.tcl: multicast routing demos to illustrate the use
+of Centralized multicast and the dense mode protocols. Comments in mcast.txt
+</LI>
+</UL>
+
+<H3>Multicast transport</H3>
+
+<UL>
+<LI><TT>ns simple-rtp.tcl</TT> <BR>
+in ns-2/tcl/ex/newmcast: <B>RTP</B>. Black for data packets, green for
+RTCP reports, cream for join messages, purple for prune messages. </LI>
+
+<LI><TT>ns srm-demo.tcl</TT> in ns-2/tcl/ex: an SRM (Scalable Reliable
+Multicast) demo. Comments in srm-demo.txt. </LI>
+
+<LI>Five tests demonstrate the behaviour of ns' <B>SRM</B> implementation:
+Scripts are: </LI>
+
+<UL>
+<LI><TT>ns srm.tcl</TT> <BR>
+Different receivers join at different times. Each receiver requests back-data
+from the start of the source session that is has missed. The demo uses
+fixed timers. </LI>
+
+<LI><TT>ns srm-star.tcl</TT> <BR>
+Code to analyse SRM behaviour in a star topology. Loss of a single packet
+is created through link failure/recovery. The number of nodes in the star
+can be changed in the script, but the nam demo is optimised for eight nodes.
+The demo uses fixed timers. </LI>
+
+<LI><TT>ns srm-chain.tcl</TT> <BR>
+Code to analyse SRM behaviour in a chain (or string) topology. Loss of
+a single packet is created through link failure/recovery. The number of
+nodes in the chain can be changed in the script, but the nam demo is optimised
+for eight nodes. The demo uses fixed timers. </LI>
+
+<LI><TT>ns srm-adapt-req.tcl [SrmType]</TT> <BR>
+Code to analyse the request parameter behaviour of the SRM Adaptive timers.
+The topology is a eight-node star. It can be changed in the script. To
+compare different timer algorithms, the user can specify a different <TT>SrmType</TT>
+agent, such as <TT>Fixed</TT>. </LI>
+
+<LI><TT>ns srm-adapt-rep.tcl [SrmType]</TT> <BR>
+Code to analyse the repair parameter behaviour of the SRM Adaptive timers.
+The topology is a eight-node star. It can be changed in the script. To
+compare different timer algorithms, the user can specify a different <TT>SrmType</TT>
+agent, such as <TT>Fixed</TT>. </LI>
+</UL>
+</UL>
+
+<H3>Traffic</H3>
+<UL>
+<LI><TT>ns shuttle-mcast.tcl</TT> <BR>
+in ns-2/tcl/ex: Example multicast traffic on a partial MBone topology</li>
+
+<LI><TT>ns web-traffic.tcl</TT> <BR>
+in ns-2/tcl/ex: Example small-scale web traffic</li>
+
+<LI><TT>ns large-scale-web-traffic.tcl</TT> <BR>
+in ns-2/tcl/exl: Example large-scale web traffic</li>
+</UL>
+
+<H3>Other</H3>
+
+<UL>
+<LI><TT>ns simple.tcl</TT> <BR>
+in ns-2/tcl/ex: a simple <B>nam</B> demo. </LI>
+
+<LI><TT>ns rc.tcl</TT> <BR>
+in ns-2/tcl/ex: <B>rate-based congestion control</B>. </LI>
+
+<LI><TT>ns tg.tcl</TT> <BR>
+in ns-2/tcl/ex: <B>traffic generation modules</B>. Comments in tg.txt.
+</LI>
+
+<LI><B>ns-2/tcl/ex/rbp_demo.tcl</B> Compres <B>TCP with rate-based pacing</B>
+against other variants. </LI>
+
+<LI><TT>ns mac-test.tcl</TT> <BR>
+in ns-2/tcl/ex: tests for <B>LANs, especially the MAC protocols</B>. There
+are several options, all specified/documented in the source file. The MAC
+protocols currently supported include CSMA/CA (modeled after the AT&amp;T
+WaveLAN), CSMA/CD (modeled after standard 10 Mbps Ethernets), Multihop
+(loosely modeled after Metricom's Ricochet), and the 802.11 protocol. Coming
+soon are complete tests for the link layer protocols in the distribution,
+such as the snoop protocol, and tests for various error models. </LI>
+
+<LI><B>ns-2/tcl/ex/test-suite-intserv.tcl : </B>A test suite which demonstrates
+4 admission-control algorithms to support controlled load class of service
+in ns. More details can be found in <B>ns-2/tcl/ex/test-suite-intserv.txt.</B></LI>
+
+<LI><B>ns-2/tcl/ex/test-rlm.tcl : </B>A nam-based test  which demonstrates
+support for Receiver Layered Multicast (RLM) 
+in ns.</B></LI>
+
+<LI><B>ns-2/tcl/ex/test-tbf.tcl : </B> A nam-based test which demonstrates
+use of a token bucket filter in ns. </li>
+
+<LI><B>ns-2/tcl/ex/test-rcvr.tcl : </B> A test for demonstrating support for 
+delay-adaptive receivers in ns.  </li>
+
+<LI><B>ns-2/tcl/ex/trace-driven.tcl : </B> An test for trace driven random variable.  </li>
+
+</UL>
+
+<hr> 
+<b><a href="http://www.isi.edu/nsnam/ns/">ns</a></b>
+<a href="mailto:ns-users@isi.edu"><i>ns-users@isi.edu</i></a>
+
+
+</BODY>
+</HTML>

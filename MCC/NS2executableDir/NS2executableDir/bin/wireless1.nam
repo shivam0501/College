@@ -1,0 +1,11 @@
+W -t * -x 500 -y 500
+n -t * -s 0  -x 50 -y 50 -Z 0 -z 30  -v circle -c black
+n -t * -s 1  -x 200 -y 250 -Z 0 -z 30  -v circle -c black
+n -t * -s 2  -x 300 -y 300 -Z 0 -z 30  -v circle -c black
+V -t * -v 1.0a5 -a 0
+A -t * -n 1 -p 0 -o 0xffffffff -c 31 -a 1
+A -t * -h 1 -m 2147483647 -s 0
+n -t 0 -s 0 -S COLOR -c black -o black -i black -I black
+n -t 0 -s 1 -S COLOR -c black -o black -i black -I black
+n -t 0 -s 2 -S COLOR -c black -o black -i black -I black
+W -t 10.0
